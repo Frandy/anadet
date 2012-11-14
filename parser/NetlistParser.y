@@ -41,6 +41,7 @@
 }
 
 // Symbols.
+/*
      %union
      {
        int          ival;
@@ -48,9 +49,25 @@
      };
 
 %token        END      0 "end of file"
-%token <sval> IDENTIFIER "identifier"
-
+//%token <sval> IDENTIFIER "identifier"
 %destructor { delete $$; } "identifier"
+
+*/
+
+%union
+{
+std::string* sval;
+}
+
+%token <sval>  ID "identifier"
+%destructor { delete $$; } <sval>  // using type to destruct token with this kind ok type
+/*
+yytext 只能在flex里面使用，不能在bison里面使用，每次需要传递值时，需要将yytext复制到token里面。
+对于不需要传递值的token，只需要标识token名称，对应到token的ID 就可以了。
+*/
+
+
+
 
 
 %%
