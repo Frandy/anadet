@@ -8,13 +8,25 @@
 #ifndef ELEMTYPE_H_
 #define ELEMTYPE_H_
 
+// elem type,
 enum class ElemType
 {
 	RES,
 	CAP,
-	VSRC
+	IND,
+	VSRC,
+	ISRC,
+	VCVS,
+	CCCS,
+	VCCS,
+	CCVS,
+	MOS,
+	OPAMP,
+	SWITCH,
+	SUBCKT,
 };
 
+// flag, fault, short or open
 enum class FaultType
 {
 	NONE,
@@ -23,5 +35,12 @@ enum class FaultType
 };
 
 
+// flag, extreme value, being infinity or zero
+enum class InftyType
+{
+	NONE,
+	INF,
+	ZERO
+};
 
 #endif /* ELEMTYPE_H_ */

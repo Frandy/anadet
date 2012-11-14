@@ -11,6 +11,11 @@
 #include <string>
 using std::string;
 
+#include <cstdlib>
+
+#include <cctype>
+using std::isdigit;
+
 #include <iostream>
 using std::cout;
 using std::cerr;
