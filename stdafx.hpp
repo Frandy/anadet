@@ -1,12 +1,12 @@
 /*
- * std.hpp
+ * stdafx.hpp
  *
  *  Created on: Nov 9, 2012
  *      Author: chjd
  */
 
-#ifndef STD_HPP_
-#define STD_HPP_
+#ifndef STDAFX_HPP_
+#define STDAFX_HPP_
 
 #include <string>
 using std::string;
@@ -54,5 +54,7 @@ using std::sin;
 
 #include <cassert>
 
+#include <stdarg.h>
+// to use variable length param
 
-#endif /* STD_HPP_ */
+#endif /* STDAFX_HPP_ */
