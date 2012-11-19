@@ -9,7 +9,7 @@
 #define ELEM_H_
 
 // for all may used headers
-#include "std.hpp"
+#include "stdafx.hpp"
 
 #include "elemType.h"
 
@@ -22,8 +22,8 @@ public:
 	Elem(string& nm,ElemType tp,double d):name(name),type(tp),value(d){}	// for R,C,L,E,F,G,H
 	virtual ~Elem(){}
 
-	string& Name() const 	{	return name;}
-	ElemType& Type() const { 	return type;}
+	string Name() 	  {	return name;}
+	ElemType Type()   { 	return type;}
 
 	void Name(string& nm) 	{	name = nm;}
 	void Type(ElemType tp)	{	type = tp;}

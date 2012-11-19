@@ -16,6 +16,10 @@ using std::string;
 #include <cctype>
 using std::isdigit;
 
+#include <cstddef>
+// use nullptr
+
+
 #include <iostream>
 using std::cout;
 using std::cerr;
@@ -29,6 +33,9 @@ using std::setw;
 using std::ifstream;
 using std::ofstream;
 
+#include <stdio.h>
+// using C-style file operation
+
 #include <vector>
 using std::vector;
 
@@ -41,6 +48,9 @@ using std::list;
 #include <unordered_map>
 using std::unordered_map;
 
+#include <utility>
+using std::pair;
+using std::make_pair;
 
 #include <functional>
 using std::function;
