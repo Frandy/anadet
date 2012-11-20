@@ -16,10 +16,9 @@
 class Elem
 {
 public:
-// basic function, construction & member visit function
 	Elem()=default;
-	Elem(string& nm,ElemType tp):name(name),type(tp){}						// for OPAMP
-	Elem(string& nm,ElemType tp,double d):name(name),type(tp),value(d){}	// for R,C,L,E,F,G,H
+	// R,C,L,E,F,G,H, if OPAMP, d = 0
+	Elem(string& nm,ElemType tp,double d=0,FaultType faulttp=FaultType::NONE):name(name),type(tp),value(d),fault(faulttp){}
 	virtual ~Elem(){}
 
 	string Name() 	  {	return name;}
@@ -36,6 +35,7 @@ public:
 	void Value(double d)	{	value = d;}
 	Cplx AcValue()			{	return acValue;} // calc gpdd
 	// virtual
+	// edge index, not needed independent, do when create LR graph
 	// value, both dc value and ac value needed
 	virtual void AcValueAtFreq(Cplx& s)	{}
 
@@ -43,17 +43,10 @@ public:
 	FaultType Fault() const { return fault;}
 	void Fault(FaultType tp) { fault = tp;}
 
-// end of basic function
-
-// basic virtual function
 
 	// print
 	virtual void Print(ostream& out){}
 
-// public interface,  virtual function
-
-
-// end public interface
 
 protected:
 	string name;

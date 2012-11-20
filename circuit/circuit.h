@@ -8,7 +8,7 @@
 #ifndef CIRCUIT_H_
 #define CIRCUIT_H_
 
-#include "std.hpp"
+#include "stdafx.hpp"
 
 //class Elem;
 #include "allElem.h"
@@ -59,38 +59,7 @@ public:
 		return tmp.first.second;
 	}
 
-	double ParamValue(string& param)
-	{
-		double d = 1.0;
-		char unit = param.back();
-		if(isdigit(unit) || unit=='.')
-			d = atof(param.c_str());
-		else
-		{
-			double u = 1.0;
-			switch(unit)
-			{
-			case 'f':
-				u = 1.0e-15;break;
-			case 'p':
-				u = 1.0e-12;break;
-			case 'n':
-				u = 1.0e-09;break;
-			case 'u':
-				u = 1.0e-06;break;
-			case 'm':
-				u = 1.0e-03;break;
-			case 'k':
-				u = 1.0e+03;break;
-			case 'x':
-				u = 1.0e+06;break;
-			case 'g':
-				u = 1.0e+09;break;
-			}
-			d *= u;
-		}
-		return d;
-	}
+
 public:
 // for parser
 	// for R,C,L
@@ -104,6 +73,7 @@ public:
 		ElemRes* elem = new ElemRes(nm,p,n,d);
 		elemList.push_back(elem);
 		return elem;
+		// return or no return ?
 	}
 
 	ElemSubckt* AddSubckt();

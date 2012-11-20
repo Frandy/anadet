@@ -241,41 +241,6 @@ typedef ExprOpNode<'m'> ExprNegNode;
 
 namespace ExprFunc
 {
-/*
-class OpAdd
-{
-public:
-	double operator()(ExprNode* left, ExprNode* right)
-	{
-		return (left->Value()) + (right->Value());
-	}
-};
-class OpSub
-{
-public:
-	double operator()(ExprNode* left, ExprNode* right)
-	{
-		return (left->Value()) - (right->Value());
-	}
-};
-class OpMul
-{
-public:
-	double operator()(ExprNode* left, ExprNode* right)
-	{
-		return (left->Value()) * (right->Value());
-	}
-};
-class OpDiv
-{
-public:
-	double operator()(ExprNode* left, ExprNode* right)
-	{
-		// assert right->Value != 0 ?
-		return (left->Value()) / (right->Value());
-	}
-};
-*/
 class FuncSin
 {
 public:
@@ -364,8 +329,8 @@ class ExprFuncNode : public ExprNode
 public:
 
 private:
-	function<double(array<double>&)> func;
-	array<ExprNode*> children;
+	tExprFunc func;
+	array<ExprNode*> children[argc];
 };
 
  */

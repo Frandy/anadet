@@ -24,7 +24,7 @@ YY_DECL;
 class NetlistDriver
 {
 public:
-	NetlistDriver();
+	NetlistDriver(Circuit* ckt);
 	virtual ~NetlistDriver();
 
 	int result;
@@ -39,6 +39,42 @@ public:
 	// Error handling.
 	void error(const yy::location& l, const std::string& m);
 	void error(const std::string& m);
+
+// for circuit
+	double ParamValue(string& param)
+	{
+		double d = 1.0;
+		char unit = param.back();
+		if(isdigit(unit) || unit=='.')
+			d = atof(param.c_str());
+		else
+		{
+			double u = 1.0;
+			switch(unit)
+			{
+			case 'f':
+				u = 1.0e-15;break;
+			case 'p':
+				u = 1.0e-12;break;
+			case 'n':
+				u = 1.0e-09;break;
+			case 'u':
+				u = 1.0e-06;break;
+			case 'm':
+				u = 1.0e-03;break;
+			case 'k':
+				u = 1.0e+03;break;
+			case 'x':
+				u = 1.0e+06;break;
+			case 'g':
+				u = 1.0e+09;break;
+			}
+			d *= u;
+		}
+		return d;
+	}
+
+
 };
 
 #endif /* NETLISTDRIVER_H_ */
