@@ -43,10 +43,12 @@ public:
 	FaultType Fault() const { return fault;}
 	void Fault(FaultType tp) { fault = tp;}
 
-
 	// print
 	virtual void Print(ostream& out){}
 
+	// virtual void CreateGraphPair(Graph* lgph,Graph* rgph);
+	// virtual bool Include(Graph* lgph,Graph* rgph,int& sign);
+	// virtual bool Exclude(Graph* lgph,Graph* rgph,int& sign);
 
 protected:
 	string name;
@@ -57,8 +59,16 @@ protected:
 	double value;		// admittance
 	Cplx acValue;		// cplx admittance
 
+// for mna stamp
+	struct {
+		vector<pair<int,int> > dc;
+		vector<pair<int,int> > tran;
+		vector<pair<int,int> > ac;
+	}stamp;
+
 // some flag
 	FaultType fault;
+	InftyType inf;
 };
 
 // for symbols, both symbol index and edge index are needed,

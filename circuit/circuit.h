@@ -39,14 +39,41 @@ public:
 	void Init();
 	void AddElem(ElemType tp,Elem* elem);
 public:
+	// keep all elems, for subckt expand, sc two phase, and so on, but not include fault elems
+	list<Elem*> allInstList;
+	// keep special elems, such with fault short or open(no need to process open), or with infity value
+	list<Elem*> shortInstList;
+	list<Elem*> openInstList;
+private:
 	string filename;
-	list<Elem*> elemList;	// keeps basic elems, R,C,L,E,F,G,H
-	list<Elem*> sourceList; // keeps sources, voltage and current source
-	list<Elem*> activeList;	// keep active devices, such as MOS
-	list<Elem*> subcktList; // keep all subckts
-	list<Task*> taskList;	// keep all tasks
-	list<Param*> paramList;
-	unordered_map<string,int> nodeMap={{"0",0}}; // map node name into index
+	// keeps basic elems, R,C,L,E,F,G,H
+	list<Elem*> elemList;
+	// keeps sources, voltage and current source
+	list<Elem*> sourceList;
+	// keep active devices, such as MOS
+	list<Elem*> activeList;
+	// keep opamps
+	list<Elem*> opampList;
+	// keep switches
+	list<Elem*> switchList;
+	// keep all subckt instances
+	list<Elem*> subcktList;
+	// keep extra elem new in circuit, instead of from parser
+	list<Elem*> extraList;
+	// keep all tasks, ordered list, DC < TRAN < AC
+	list<Task*> taskList;
+
+	// map node name into index
+	unordered_map<string,int> nodeMap={{"0",0}};
+	// map elem name with its address, for look-up
+	unordered_map<string,Elem*> elemMap;
+	// keep subckt circuit
+	unordered_map<string,Elem*> subcktMap;
+	// keep models, model may be save together with subcktMap
+	unordered_map<string,Elem*> modelMap;
+	// for look-up param value, this also can be iterate, so no need for list
+	unordered_map<string,ParamNode*> paramMap;
+
 
 	ScParam scparam;
 

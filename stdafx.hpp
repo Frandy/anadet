@@ -10,6 +10,7 @@
 
 #include <string>
 using std::string;
+using std::u16string;
 
 #include <cstdlib>
 
