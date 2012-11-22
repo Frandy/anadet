@@ -8,6 +8,8 @@
 #ifndef EDGE_H_
 #define EDGE_H_
 
+// special kind of triple, inherit from triple ?
+
 class Edge
 {
 public:
@@ -25,9 +27,13 @@ public:
 	int NodeP() const { return nodep;}
 	int NodeN() const { return noden;}
 
-	// short large node to small node, if the node of this edge equal to large node
-	// and re index node is done here
-	// return true, if self-loop after short
+	// except short, no other method to modify index, and node
+
+	/**@brief
+	 * short large node to small node, if the node of this edge equal to large node;
+	 * and re index node is done here;
+	 * return true  if self-loop after short
+	 */
 	bool Short(int small,int large)
 	{
 		if(nodep==large)

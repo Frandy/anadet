@@ -14,6 +14,7 @@
 
 class Graph
 {
+public:
 	// default construct
 	Graph()=default;
 	// copy construct

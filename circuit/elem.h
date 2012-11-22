@@ -18,7 +18,8 @@ class Elem
 public:
 	Elem()=default;
 	// R,C,L,E,F,G,H, if OPAMP, d = 0
-	Elem(string& nm,ElemType tp,double d=0,FaultType faulttp=FaultType::NONE):name(name),type(tp),value(d),fault(faulttp){}
+	Elem(string& nm,ElemType tp,double d=0)
+		:name(name),type(tp),admittance(d),infty(InftyType::NONE),fault(FaultType::NONE){}
 	virtual ~Elem(){}
 
 	string Name() 	  {	return name;}
@@ -27,28 +28,42 @@ public:
 	void Name(string& nm) 	{	name = nm;}
 	void Type(ElemType tp)	{	type = tp;}
 
+	// value, the value in netlist, if to calc coef or stamp, use admittance
+	virtual double Value()			{	return admittance;}
+	virtual void Value(double d)	{	admittance = d;}
+
+
+
 	// for symbol
 	// common
 	int Index() const		{	return index;}
 	void Index(int& k)		{	index = k++;}
-	double Value()			{	return value;}  // calc coef
-	void Value(double d)	{	value = d;}
-	Cplx AcValue()			{	return acValue;} // calc gpdd
+	double Admittance()		{	return admittance;}
 	// virtual
+	//@{
 	// edge index, not needed independent, do when create LR graph
+	virtual void CreateGraphPair(Graph* left,Graph* right);
+	virtual bool Include(Graph* left,Graph* right,int& sign);
+	virtual bool Exclude(Graph* left,Graph* right,int& sign);
+	//@}
 	// value, both dc value and ac value needed
-	virtual void AcValueAtFreq(Cplx& s)	{}
+	virtual void AcAdmittanceAtFreq(Cplx& s)	{}
 
 	// for fault
 	FaultType Fault() const { return fault;}
-	void Fault(FaultType tp) { fault = tp;}
+	void Fault(FaultType tp) {
+		fault = tp;
+		if(fault==FaultType::SHORT)
+			infty = InftyType::INF;
+		else if(fault==FaultType::OPEN)
+			infty = InftyType::ZERO;
+	}
+	InftyType Infty() const { return infty;}
+	// do this after parse the element, d < min or d>max ?
+	virtual void Infty(double d){}
 
 	// print
 	virtual void Print(ostream& out){}
-
-	// virtual void CreateGraphPair(Graph* lgph,Graph* rgph);
-	// virtual bool Include(Graph* lgph,Graph* rgph,int& sign);
-	// virtual bool Exclude(Graph* lgph,Graph* rgph,int& sign);
 
 protected:
 	string name;
@@ -56,8 +71,8 @@ protected:
 
 // for symbol
 	int index;
-	double value;		// admittance
-	Cplx acValue;		// cplx admittance
+	double admittance;		// admittance
+	Cplx cadmittance;		// cplx admittance
 
 // for mna stamp
 	struct {
@@ -68,7 +83,7 @@ protected:
 
 // some flag
 	FaultType fault;
-	InftyType inf;
+	InftyType infty;
 };
 
 // for symbols, both symbol index and edge index are needed,
